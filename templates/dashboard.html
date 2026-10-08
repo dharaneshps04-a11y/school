@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">AJS Institute</a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Fees</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Results</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Events</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Attendance</a>
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Timetable
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+    
+    <a class="dropdown-item" href="#standard6" onclick="showTimetable('standard6')">6th</a>
+    <a class="dropdown-item" href="#std7" onclick="showTimetable('std7')">7th</a>
+    <a class="dropdown-item" href="#std8" onclick="showTimetable('std8')">8th</a>
+    <a class="dropdown-item" href="#std9" onclick="showTimetable('std9')">9th</a>
+    <a class="dropdown-item" href="#std10" onclick="showTimetable('std10')">10th</a>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="dropdown-header">11th Standard</div>
+    <a class="dropdown-item" href="#std11a"  onclick="showTimetable('std11a')">Group 1</a>
+    <a class="dropdown-item" href="#std11b" onclick="showTimetable('std11b')">Group 2</a>
+    <a class="dropdown-item" href="#std11c" onclick="showTimetable('std11c')">Group 3</a>
+    <a class="dropdown-item" href="#std11d" onclick="showTimetable('std11d')">Group 4</a>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="dropdown-header">12th Standard</div>
+    <a class="dropdown-item" href="#std12a" onclick="showTimetable('std12a')">Group 1</a>
+    <a class="dropdown-item" href="#std12b" onclick="showTimetable('std12b')">Group 2</a>
+    <a class="dropdown-item" href="#std12c" onclick="showTimetable('std12c')">Group 3</a>
+    <a class="dropdown-item" href="#std12d" onclick="showTimetable('std12d')">Group 4</a>
+    
+
+</div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Top Score</a>
+        </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+    </nav>
+    </div>
+    <div class="container mt-2">
+        <h2>Student Dashboard</h2>
+        <p>Welcome to your dashboard!</p>
+    </div>
+    <div class="container mt-4">
+
+    <div id="cards" class="row">
+
+        <!-- Fee card -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-3" onclick="showTimetable('feedetail')">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-icon">💸</div>
+                    <h6>Fee Status</h6>
+                    <h4>₹10,000</h4>
+                    <p class="text-muted">Pending</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aggregate Score -->
+<div class="col-12 col-sm-6 col-lg-3 mb-3" onclick="showTimetable('scoredetail')">               <div class="card">
+                <div class="card-body">
+                    <div class="card-icon">🌟</div>
+                    <h6>Aggregate Score</h6>
+                    <h4>87.5%</h4>
+                    <p class="text-muted">Good Performance</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-icon">🙌</div>
+                    <h6>Attendance</h6>
+                    <h4>92%</h4>
+                    <p class="text-muted">Excellent</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activities -->
+        <div class="col-12 col-sm-6 col-lg-3 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-icon">🏋️‍♂️</div>
+                    <h6>Activities</h6>
+                    <h4>4</h4>
+                    <p class="text-muted">Pending</p>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- #cards ends here -->
+
+
+    <!-- Fee Details -->
+    <div id="feedetail" class="card mt-4" style="display: none;">
+        <div class="card-body">
+            <h2>Total Fee : ₹20,000</h2>
+            <h4>Paid Fee : ₹10,000</h4>
+            <h4>Remaining Fee : ₹10,000</h4>
+
+            <button type="button" class="btn btn-danger mb-3"
+                onclick="hideTimetable('feedetail')">
+                Close
+            </button>
+        </div>
+    </div>
+
+</div>
+<div class="timetable">
+<div class="container mt-4 mb-4" id="std11a" style="display: none;">
+
+    <h3>11th Standard - Group 1</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std11a')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="std11b" style="display: none;">
+
+    <h3>11th Standard - Group 2</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std11b')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="std11c" style="display: none;">
+
+    <h3>11th Standard - Group 3</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std11c')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="std11d" style="display: none;">
+
+    <h3>11th Standard - Group 4</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std11d')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="std12a" style="display: none;">
+
+    <h3>12th Standard - Group 1</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std12a')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="std12b" style="display: none;">
+
+    <h3>12th Standard - Group 2</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std12b')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="std12c" style="display: none;">
+
+    <h3>12th Standard - Group 3</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std12c')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="std12d" style="display: none;">
+
+    <h3>12th Standard - Group 4</h3>
+    <button type="button" class="btn btn-danger mb-3"
+        onclick="hideTimetable('std12d')">
+    Close it!
+    </button>
+    <p class="text-muted">Weekly Timetable (Sample)</p>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Monday</th>
+                    <td>Tamil</td><td>English</td><td>Maths</td>
+                    <td>Physics</td><td>Chemistry</td><td>Computer</td>
+                </tr>
+                <tr>
+                    <th>Tuesday</th>
+                    <td>Maths</td><td>Physics</td><td>English</td>
+                    <td>Computer</td><td>Tamil</td><td>Chemistry</td>
+                </tr>
+                <tr>
+                    <th>Wednesday</th>
+                    <td>Chemistry</td><td>Maths</td><td>Computer</td>
+                    <td>Tamil</td><td>Physics</td><td>English</td>
+                </tr>
+                <tr>
+                    <th>Thursday</th>
+                    <td>Physics</td><td>Chemistry</td><td>Maths</td>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                </tr>
+                <tr>
+                    <th>Friday</th>
+                    <td>English</td><td>Computer</td><td>Tamil</td>
+                    <td>Maths</td><td>Chemistry</td><td>Physics</td>
+                </tr>
+                <tr>
+                    <th>Saturday</th>
+                    <td>Computer</td><td>Tamil</td><td>Physics</td>
+                    <td>Chemistry</td><td>English</td><td>Maths</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-4 mb-4" id="standard6" style="display: none;">
+    <h2>6th Standard Timetable</h2>
+
+    <button type="button" class="btn btn-secondary mb-3"
+            onclick="hideTimetable('standard6')">
+        Close Timetable
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Lunch Period</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><th>Monday</th><td>Tamil</td><td>English</td><td>|</td><td>Maths</td><td>Science</td></tr>
+                <tr><th>Tuesday</th><td>English</td><td>Maths</td><td>|</td><td>Social</td><td>Tamil</td></tr>
+                <tr><th>Wednesday</th><td>Maths</td><td>Science</td><td>|</td><td>Tamil</td><td>English</td></tr>
+                <tr><th>Thursday</th><td>Social</td><td>Tamil</td><td>|</td><td>English</td><td>Maths</td></tr>
+                <tr><th>Friday</th><td>Science</td><td>Social</td><td>|</td><td>Maths</td><td>English</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-5 mb-4" id="std7" style="display:none;">
+    <h2>7th Standard Timetable</h2>
+    <button type="button" class="btn btn-secondary mb-3" onclick="hideTimetable('std7')">
+        Close Timetable
+    </button>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+    <thead class="thead-light">
+        <tr>
+            <th>Day</th>
+            <th>Period 1</th>
+            <th>Period 2</th>
+            <th>Lunch Period</th>
+            <th>Period 3</th>
+            <th>Period 4</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><th>Monday</th><td>social</td><td>Science</td><td>|</td><td>Maths</td><td>English</td></tr>
+        <tr><th>Tuesday</th><td>Tamil</td><td>Social</td><td>|</td><td>Science</td><td>Maths</td></tr>
+        <tr><th>Wednesday</th><td>Maths</td><td>Science</td><td>|</td><td>Tamil</td><td>English</td></tr>
+        <tr><th>Thursday</th><td>Social</td><td>Tamil</td><td>|</td><td>English</td><td>Maths</td></tr>
+        <tr><th>Friday</th><td>Science</td><td>Social</td><td>|</td><td>Maths</td><td>English</td></tr>
+    </tbody>
+    </table>
+    </div>
+</div>
+<div class="container mt-5 mb-4" id="std8" style="display:none;">
+    <h2>8th Standard Timetable</h2>
+    <button type="button" class="btn btn-secondary mb-3" onclick="hideTimetable('std8')">
+        Close Timetable
+    </button>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Lunch Period</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><th>Monday</th><td>social</td><td>Science</td><td>|</td><td>Maths</td><td>English</td></tr>
+                <tr><th>Tuesday</th><td>Tamil</td><td>Social</td><td>|</td><td>Science</td><td>Maths</td></tr>
+                <tr><th>Wednesday</th><td>Maths</td><td>Science</td><td>|</td><td>Tamil</td><td>English</td></tr>
+                <tr><th>Thursday</th><td>Social</td><td>Tamil</td><td>|</td><td>English</td><td>Maths</td></tr>
+                <tr><th>Friday</th><td>Science</td><td>Social</td><td>|</td><td>Maths</td><td>English</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-5 mb-4" id="std9" style="display:none;">
+    <h2>9th Standard Timetable</h2>
+    <button type="button" class="btn btn-secondary mb-3" onclick="hideTimetable('std9')">
+        Close Timetable
+    </button>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Lunch Period</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><th>Monday</th><td>social</td><td>Science</td><td>|</td><td>Maths</td><td>English</td></tr>
+                <tr><th>Tuesday</th><td>Tamil</td><td>Social</td><td>|</td><td>Science</td><td>Maths</td></tr>
+                <tr><th>Wednesday</th><td>Maths</td><td>Science</td><td>|</td><td>Tamil</td><td>English</td></tr>
+                <tr><th>Thursday</th><td>Social</td><td>Tamil</td><td>|</td><td>English</td><td>Maths</td></tr>
+                <tr><th>Friday</th><td>Science</td><td>Social</td><td>|</td><td>Maths</td><td>English</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="container mt-5 mb-4" id="std10" style="display:none;">
+    <h2>10th Standard Timetable</h2>
+    <button type="button" class="btn btn-secondary mb-3" onclick="hideTimetable('std10')">
+        Close Timetable
+    </button>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Lunch Period</th>
+                    <th>Period 3</th>
+                    <th>Period 4</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><th>Monday</th><td>social</td><td>Science</td><td>|</td><td>Maths</td><td>English</td></tr>
+                <tr><th>Tuesday</th><td>Tamil</td><td>Social</td><td>|</td><td>Science</td><td>Maths</td></tr>
+                <tr><th>Wednesday</th><td>Maths</td><td>Science</td><td>|</td><td>Tamil</td><td>English</td></tr>
+                <tr><th>Thursday</th><td>Social</td><td>Tamil</td><td>|</td><td>English</td><td>Maths</td></tr>
+                <tr><th>Friday</th><td>Science</td><td>Social</td><td>|</td><td>Maths</td><td>English</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
